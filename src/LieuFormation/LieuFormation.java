@@ -14,11 +14,11 @@ public class LieuFormation {
 
     private String id;
     private String nom;
-    private int codePostal;
+    private int[] codePostal;
     private double longitude;
     private double latitude;
     
-    public LieuFormation(String id, String nom, int codePostal, double longitude, double latitude) {
+    public LieuFormation(String id, String nom, int[] codePostal, double longitude, double latitude) {
         this.id = id;
         this.nom = nom;
         this.codePostal = codePostal;
@@ -34,7 +34,7 @@ public class LieuFormation {
         return nom;
     }
 
-    public int getCodePostal() {
+    public int[] getCodePostal() {
         return codePostal;
     }
 
@@ -54,7 +54,7 @@ public class LieuFormation {
         this.nom = nom;
     }
 
-    public void setCodePostal(int codePostal) {
+    public void setCodePostal(int[] codePostal) {
         this.codePostal = codePostal;
     }
 

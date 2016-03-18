@@ -38,7 +38,7 @@ public class LectureLieuxFormation {
             String ligne = "";
             String id = "";
             String nom = "";
-            int cp;
+            int cp[]={};
             double longi;
             double lati;
             br.readLine();//la premiere ligne ne nous interesse pas ici
@@ -46,7 +46,7 @@ public class LectureLieuxFormation {
                 String[] parts = ligne.split(";");
                 id = parts[0].substring(1, parts[0].length()-1);
                 nom = parts[1].substring(1, parts[1].length()-1);
-                cp = Integer.parseInt(parts[2].substring(1, parts[2].length()-1));
+                cp[0] = Integer.parseInt(parts[2].substring(1, parts[2].length()-1));// à gérer
                 longi = Integer.parseInt(parts[3].substring(1, parts[3].length()-1));
                 lati = Integer.parseInt(parts[4].substring(1, parts[4].length()-1));
                 LieuFormation lf = new LieuFormation(id, nom, cp, longi, lati);
