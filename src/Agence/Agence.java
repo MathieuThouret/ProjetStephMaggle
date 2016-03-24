@@ -16,7 +16,9 @@ public class Agence extends LieuFormation {
     
     private int nbPersonnes;
     
+
     public Agence(String id, String nom, int codePostal, double longitude, double latitude, int nbPersonnes) {
+
         super(id, nom, codePostal, longitude, latitude);
         this.nbPersonnes = nbPersonnes;
     }
