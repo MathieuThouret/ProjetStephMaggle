@@ -8,6 +8,7 @@ package Recherche;
 import Agence.Agence;
 import Agence.ListeAgences;
 import FonctionUtiles.FonctionUtiles;
+import LieuFormation.EffectifLieuFormation;
 import LieuFormation.LieuFormation;
 import LieuFormation.ListeLieuxFormation;
 import Solution.X;
@@ -26,19 +27,24 @@ public class Initialisation {
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
         for (Agence a: listAgence.getList()){
-            
+            couple.putLieuFormation(a,getClosest(a, listForm.getList()));
         }
     }
     
     
-    public LieuFormation getClosest(Agence a, List<LieuFormation> listForm){
+    public static LieuFormation getClosest(Agence a, List<EffectifLieuFormation> listForm){
         double longi = a.getLongitude();
         double lati = a.getLatitude();
-        double dist = 1500.0; //plus grand que la france
-        for(LieuFormation lf: listForm){
-            if (FonctionUtiles.DistanceTo(lati, longi, lf.getLatitude(), lf.getLongitude())<dist ){
-                
+        double min = 1500.0; //plus grand que la france
+        EffectifLieuFormation closest = listForm.get(0);
+        for(EffectifLieuFormation elf: listForm){
+            boolean rempli = (a.getNbPersonnes()+elf.getEffectif())>60;
+            double dist = FonctionUtiles.DistanceTo(lati, longi, elf.getLatitude(), elf.getLongitude());
+            if (dist<min && !rempli){
+                min = Math.min(min, dist);
+                closest = elf;
             }
         }
+        return closest;
     }
 }
