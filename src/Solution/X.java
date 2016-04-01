@@ -29,4 +29,8 @@ public class X {
     public LieuFormation getLieuFormation(Agence a){
         return couple.get(a);
     }
+    
+    public Map<Agence, LieuFormation> getCouple() {
+        return couple;
+    }
 }
