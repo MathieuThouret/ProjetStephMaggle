@@ -29,7 +29,7 @@ public class CalculResultat {
         return list.size();
     }
     //Cout=3000* nbLieu + Somme(X(i,j) distance (A(i),L(i))*0,4)
-    public int resultat(X solution) {
+    public static int resultat(X solution) {
         int resultat=0;
         resultat+=3000*nbLieux(solution);
         for (Map.Entry<Agence, LieuFormation> entry : solution.getCouple().entrySet()) {
