@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author mathieu
  */
 public class ListeAgences {
-    List<Agence> la;
+    private List<Agence> la;
 
     public ListeAgences(String file){
         this.la = lireFichier(file);
@@ -25,6 +25,10 @@ public class ListeAgences {
     
     public ListeAgences(){
         this.la = lireFichier("resources/ListeAgences_100.txt");
+    }
+    
+    public List<Agence> getList(){
+        return la;
     }
     
     private List<Agence> lireFichier(String f){

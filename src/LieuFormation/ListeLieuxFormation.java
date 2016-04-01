@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author mathieu
  */
 public class ListeLieuxFormation {
-    List<LieuFormation> llf;
+    private List<EffectifLieuFormation> llf;
     
     public ListeLieuxFormation(String file){
         this.llf = lireFichier(file);
@@ -29,8 +29,12 @@ public class ListeLieuxFormation {
         this.llf = lireFichier("resources/LieuxPossibles.txt");
     }
     
-    private List<LieuFormation> lireFichier(String f){
-        List<LieuFormation> listLieux;
+    public List<EffectifLieuFormation> getList(){
+        return llf;
+    }
+    
+    private List<EffectifLieuFormation> lireFichier(String f){
+        List<EffectifLieuFormation> listLieux;
         listLieux = new ArrayList<>();
         try{
             InputStream is = new FileInputStream(f);
@@ -50,8 +54,8 @@ public class ListeLieuxFormation {
                 cp = Integer.parseInt(parts[2].substring(1, parts[2].length()-1).split("-")[0]);
                 longi = Double.parseDouble(parts[3]);
                 lati = Double.parseDouble(parts[4]);
-                LieuFormation lf = new LieuFormation(id, nom, cp, longi, lati);
-                listLieux.add(lf);
+                EffectifLieuFormation elf = new EffectifLieuFormation(id, nom, cp, longi, lati);
+                listLieux.add(elf);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ListeLieuxFormation.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,7 +68,7 @@ public class ListeLieuxFormation {
     @Override
     public String toString(){
         String str="";
-        for(LieuFormation l: llf){
+        for(EffectifLieuFormation l: llf){
             str+=l.getId() + " + " + l.getNom() + " + " + l.getCodePostal() + " + " + l.getLongitude() + " + " + l.getLatitude()+"\n";
         }
         return str;

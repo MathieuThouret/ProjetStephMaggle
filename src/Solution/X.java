@@ -6,6 +6,7 @@
 package Solution;
 
 import Agence.Agence;
+import LieuFormation.EffectifLieuFormation;
 import LieuFormation.LieuFormation;
 import java.util.Map;
 
