@@ -7,6 +7,7 @@ package Recherche;
 
 import Agence.Agence;
 import Agence.ListeAgences;
+import CalculResultat.CalculResultat;
 import FonctionUtiles.FonctionUtiles;
 import LieuFormation.EffectifLieuFormation;
 import LieuFormation.LieuFormation;
@@ -29,6 +30,9 @@ public class Initialisation {
         for (Agence a: listAgence.getList()){
             couple.putLieuFormation(a,getClosest(a, listForm.getList()));
         }
+        System.out.println("");
+        System.out.println(CalculResultat.resultat(couple));
+        
     }
     
     

@@ -28,12 +28,12 @@ public class CalculResultat {
         }
         return list.size();
     }
-    //Cout=3000* nbLieu + Somme(X(i,j) distance (A(i),L(i))*0,4)
+    //Cout=3000* nbLieu + Somme( distance (A(i),L(i))*0,4)
     public static int resultat(X solution) {
         int resultat=0;
         resultat+=3000*nbLieux(solution);
         for (Map.Entry<Agence, LieuFormation> entry : solution.getCouple().entrySet()) {
-                resultat+=FonctionUtiles.DistanceTo(entry.getValue().getLatitude(),entry.getValue().getLongitude(), entry.getKey().getLatitude(), entry.getKey().getLongitude())*0.4;
+                resultat+=FonctionUtiles.DistanceTo(entry.getValue().getLatitude(),entry.getValue().getLongitude(), entry.getKey().getLatitude(), entry.getKey().getLongitude())*0.4*entry.getKey().getNbPersonnes();
         }
         return resultat;
     }

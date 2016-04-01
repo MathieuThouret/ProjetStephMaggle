@@ -8,6 +8,7 @@ package Solution;
 import Agence.Agence;
 import LieuFormation.EffectifLieuFormation;
 import LieuFormation.LieuFormation;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,9 +17,10 @@ import java.util.Map;
  */
 public class X {
     
-    Map<Agence, LieuFormation> couple;
+    private Map<Agence, LieuFormation> couple;
     
     public X() {
+        couple = new HashMap<>();
         couple.clear();
     }
     
