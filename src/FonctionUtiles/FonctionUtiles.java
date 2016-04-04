@@ -10,7 +10,7 @@ package FonctionUtiles;
  * @author Thibaud
  */
 public class FonctionUtiles {
-
+    /* fonction permettant de trouver la distance entre 2 points en utilisant leurs coordonnées*/
     public static double DistanceTo(double lat1, double lon1, double lat2, double lon2) {
         double rlat1 = Math.PI * lat1 / 180;
         double rlat2 = Math.PI * lat2 / 180;

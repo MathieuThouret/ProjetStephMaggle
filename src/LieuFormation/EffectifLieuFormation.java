@@ -9,6 +9,10 @@ package LieuFormation;
  *
  * @author mathieu
  */
+
+/*Type décrivant un Lieu de formation
+On conserve en plus le nombre de personnes déjà attribuées au lieu de formation
+*/
 public class EffectifLieuFormation extends LieuFormation{
     int effectif;
 
@@ -21,7 +25,11 @@ public class EffectifLieuFormation extends LieuFormation{
         return effectif;
     }
 
-    public void setEffectif(int effectif) {
-        this.effectif = effectif;
-    }    
+    public void setEffectif(int _effectif) {
+        this.effectif = _effectif;
+    }
+    
+    public void subEffectif(int _effectif) {
+        this.effectif -= _effectif;
+    }
 }

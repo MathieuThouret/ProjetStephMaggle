@@ -15,11 +15,17 @@ import java.util.Map;
  *
  * @author mathieu
  */
-public class X {
+
+/*Type de la solution calculées par l'algorithme, contient uniquement
+l'ensemble des couples Agence/LieuFormation
+Les autres informations utiles (nombre de lieux de formation, prix de la solution)
+sont calculés séparément
+*/
+public class Solution {
     
-    private Map<Agence, LieuFormation> couple;
+    private final Map<Agence, LieuFormation> couple;
     
-    public X() {
+    public Solution() {
         couple = new HashMap<>();
         couple.clear();
     }

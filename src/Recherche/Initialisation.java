@@ -12,7 +12,7 @@ import FonctionUtiles.FonctionUtiles;
 import LieuFormation.EffectifLieuFormation;
 import LieuFormation.LieuFormation;
 import LieuFormation.ListeLieuxFormation;
-import Solution.X;
+import Solution.Solution;
 import java.util.List;
 
 /**
@@ -23,19 +23,26 @@ public class Initialisation {
     
     int[] effectifLieu = new int[1947];
 
+    
+    /*
+    On prend pour solution initiale l'ensemble des lieux de formation les plus proches
+    de chaque agence
+    */
     public static void main(String[] args){
-        X couple = new X();
+        Solution couple = new Solution();
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
         for (Agence a: listAgence.getList()){
             couple.putLieuFormation(a,getClosest(a, listForm.getList()));
         }
-        System.out.println("");
-        System.out.println(CalculResultat.resultat(couple));
+        System.out.println("Nous trouvons un résultat de "+CalculResultat.resultat(couple)+" €");
         
     }
     
-    
+    /*
+    Renvoi le lieu de formation libre (ayant suffisament de place)
+    le plus proche de l'agence donnée
+    */
     public static LieuFormation getClosest(Agence a, List<EffectifLieuFormation> listForm){
         double longi = a.getLongitude();
         double lati = a.getLatitude();

@@ -8,7 +8,7 @@ package CalculResultat;
 import Agence.Agence;
 import FonctionUtiles.FonctionUtiles;
 import LieuFormation.LieuFormation;
-import Solution.X;
+import Solution.Solution;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +17,12 @@ import java.util.Map;
  *
  * @author Thibaud
  */
+
+/*ensemble de fonctions permettant de calculer le prix d'une solution*/
 public class CalculResultat {
 
-    private static int nbLieux(X solution) {
+    /* renvoi le nombre de Lieux de formation utilisés dans une solution */
+    private static int nbLieux(Solution solution) {
         List<LieuFormation> list = new ArrayList();
         for (Map.Entry<Agence, LieuFormation> entry : solution.getCouple().entrySet()) {
             if (!list.contains(entry.getValue())) {
@@ -28,8 +31,9 @@ public class CalculResultat {
         }
         return list.size();
     }
-    //Cout=3000* nbLieu + Somme( distance (A(i),L(i))*0,4)
-    public static int resultat(X solution) {
+    /* renvoi le Prix d'une solution en utilisant la fonction
+    Cout=3000* nbLieu + Somme(distance (A(i),L(j))*0,4*NbPers(A(i)))*/
+    public static int resultat(Solution solution) {
         int resultat=0;
         resultat+=3000*nbLieux(solution);
         for (Map.Entry<Agence, LieuFormation> entry : solution.getCouple().entrySet()) {

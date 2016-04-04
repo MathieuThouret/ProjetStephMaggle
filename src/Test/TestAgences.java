@@ -12,6 +12,8 @@ import Agence.*;
  *
  * @author Thibaud
  */
+
+//Test de la fonction de lecture du fichier Agence
 public class TestAgences {
     public static void main(String[] args) {
         ListeAgences Lecture = new ListeAgences();

@@ -12,6 +12,7 @@ import LieuFormation.*;
  *
  * @author Thibaud
  */
+//Test de la fonction de lecture du fichier LieuxFormation
 public class TestLieuxFormation {
     public static void main(String[] args) {
         ListeLieuxFormation Lecture = new ListeLieuxFormation();
