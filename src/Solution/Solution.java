@@ -6,9 +6,10 @@
 package Solution;
 
 import Agence.Agence;
-import LieuFormation.EffectifLieuFormation;
 import LieuFormation.LieuFormation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,5 +41,13 @@ public class Solution {
     
     public Map<Agence, LieuFormation> getCouple() {
         return couple;
+    }
+    
+    public List<Agence> getListAgence() {
+        List<Agence> list = new ArrayList();
+        for (Map.Entry<Agence, LieuFormation> entry : couple.entrySet()) {
+                list.add(entry.getKey());
+        }
+        return list;
     }
 }

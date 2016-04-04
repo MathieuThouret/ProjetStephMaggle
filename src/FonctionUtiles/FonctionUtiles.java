@@ -5,6 +5,9 @@
  */
 package FonctionUtiles;
 
+import java.util.List;
+import java.util.Random;
+
 /**
  *
  * @author Thibaud
@@ -26,5 +29,10 @@ public class FonctionUtiles {
         dist = dist * 1.609344;
 
         return dist;
+    }
+    
+    public static <T> T randomFromList(List<T> list) {
+        Random randomizer = new Random();
+        return list.get(randomizer.nextInt(list.size()));
     }
 }
