@@ -32,15 +32,23 @@ public class Initialisation {
         Solution couple = new Solution();
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
+        int resultat;
         for (Agence a: listAgence.getList()){
-            couple.putLieuFormation(a,getClosest(a, listForm.getList()));
+            LieuFormation closest=getClosest(a, listForm.getList());
+            listForm.addPeople(closest, a.getNbPersonnes());
+            couple.putLieuFormation(a,closest);
         }
-        System.out.println("Nous trouvons un résultat de "+CalculResultat.resultat(couple)+" €");
+        resultat=CalculResultat.resultat(couple);
+        System.out.println("Nous trouvons un résultat initial de "+resultat+" €");
         
         int k=0;
-        int kmax=10000;
+        int kmax=1000;
         while (k<kmax) {
-            
+            Solution Sn=voisin(couple, listForm.getList());
+            int En=CalculResultat.resultat(Sn);
+            if (TestRandom(resultat,En,k,kmax)) {
+                
+            }
         }
     }
     
@@ -91,5 +99,10 @@ public class Initialisation {
         Agence a=FonctionUtiles.randomFromList(agences);
         solution.putLieuFormation(a,getCloseEnough(a, listForm));
         return solution;
+    }
+    
+    public static boolean TestRandom(int E, int En, int k, int kmax) {
+        boolean test=(En<E);
+        return test;
     }
 }

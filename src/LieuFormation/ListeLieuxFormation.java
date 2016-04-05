@@ -33,6 +33,11 @@ public class ListeLieuxFormation {
         return llf;
     }
     
+    public void addPeople(LieuFormation Lieu, int people) {
+        //todo
+        //llf.forEach();
+    }
+    
     private List<EffectifLieuFormation> lireFichier(String f){
         List<EffectifLieuFormation> listLieux;
         listLieux = new ArrayList<>();

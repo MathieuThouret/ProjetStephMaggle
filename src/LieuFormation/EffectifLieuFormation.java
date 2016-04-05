@@ -32,4 +32,7 @@ public class EffectifLieuFormation extends LieuFormation{
     public void subEffectif(int _effectif) {
         this.effectif -= _effectif;
     }
+    
+    public LieuFormation getLieuFormation(){
+        return new LieuFormation(this.getId(), this.getNom(), this.getCodePostal(), this.getLongitude(), this.getLatitude());    }
 }
