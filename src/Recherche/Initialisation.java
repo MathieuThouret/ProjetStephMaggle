@@ -29,29 +29,65 @@ public class Initialisation {
     de chaque agence    
     */
     public static void main(String[] args){
-        Solution couple = new Solution();
+        //Todo prompt données
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
+        //Todo prompt parametres
+        int kmax=1000;
+        double ti=50;
+        double u=0.85;
+        Solution Si=trouverSolutionInitiale(listAgence, listForm);
+        Solution Smin=trouverSolutionFinale(Si, listForm, kmax, ti, u);
+    }
+    
+    
+    public static Solution trouverSolutionInitiale(ListeAgences listAgence, ListeLieuxFormation listForm){
+        //On cherche un état itinial à l'algorithme,
+        //pour cela on choisit le lieu de formation libre le plus proche de chaque agence
+        //cette méthode nous donne une solution assez bonne, qui ne sera donc pas facile à améliorer
+        Solution S = new Solution();
         int resultat;
         for (Agence a: listAgence.getList()){
             LieuFormation closest=getClosest(a, listForm.getList());
             listForm.addPeople(closest, a.getNbPersonnes());
-            couple.putLieuFormation(a,closest);
+            S.putLieuFormation(a,closest);
         }
-        resultat=CalculResultat.resultat(couple);
+        resultat=CalculResultat.resultat(S);
         System.out.println("Nous trouvons un résultat initial de "+resultat+" €");
-        
-        int k=0;
-        int kmax=1000;
-        while (k<kmax) {
-            Solution Sn=voisin(couple, listForm.getList());
-            int En=CalculResultat.resultat(Sn);
-            if (TestRandom(resultat,En,k,kmax)) {
-                
-            }
-        }
+        return S;
     }
     
+    public static Solution trouverSolutionFinale(Solution Si, ListeLieuxFormation listForm, int kmax, double ti, double u) {
+        double t=ti; // Parametre température initiale
+        int k=0;
+        Solution Sn; // Solution courante
+        Solution Sp=Si; // Solution précedente
+        Solution Smin=Si; // Solution optimale recherchée par l'algo
+        int En; // Valeur de la solution courante 
+        int delta;
+        while (k<kmax) {
+            System.out.println("k="+k+" "+CalculResultat.resultat(Smin));
+            Sn=voisin(Sp, listForm.getList()); //WTF, pourquoi ça modifie CaulculResultat.resultat(Smin) ???
+            System.out.println("k="+k+" "+CalculResultat.resultat(Smin));
+            En=CalculResultat.resultat(Sn);
+            delta = En-CalculResultat.resultat(Sp);
+            if (delta <= 0) {
+                Sp = Sn;
+                if (En<CalculResultat.resultat(Smin)) {
+                    Smin=Sn;
+                }
+            }
+            else {
+                if(Math.random()<Math.exp(-delta/t)){
+                    Sp = Sn;
+                }
+            }
+         t=u*t;
+         k++;
+        }
+        System.out.println("Nous trouvons un résultat final de "+CalculResultat.resultat(Smin)+" €");
+        return Smin;
+    }
     /*
     Renvoi le lieu de formation libre (ayant suffisament de place)
     le plus proche de l'agence donnée
@@ -101,8 +137,4 @@ public class Initialisation {
         return solution;
     }
     
-    public static boolean TestRandom(int E, int En, int k, int kmax) {
-        boolean test=(En<E);
-        return test;
-    }
 }
