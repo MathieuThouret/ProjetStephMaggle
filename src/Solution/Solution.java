@@ -24,7 +24,7 @@ sont calculés séparément
 */
 public class Solution {
     
-    private final Map<Agence, LieuFormation> couple;
+    private Map<Agence, LieuFormation> couple;
     
     public Solution() {
         couple = new HashMap<>();
@@ -49,5 +49,11 @@ public class Solution {
                 list.add(entry.getKey());
         }
         return list;
+    }
+    
+    public Solution clone() {
+        Solution s0= new Solution();
+        s0.couple=new HashMap<Agence, LieuFormation>(this.couple);
+        return s0;
     }
 }

@@ -33,8 +33,11 @@ public class Initialisation {
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
         //Todo prompt parametres
-        int kmax=1000;
-        double ti=50;
+        int kmax=100000;
+        double df=2000;
+        double p=0.8;
+        //double ti=50;
+        double ti=-df/Math.log(p);
         double u=0.85;
         Solution Si=trouverSolutionInitiale(listAgence, listForm);
         Solution Smin=trouverSolutionFinale(Si, listForm, kmax, ti, u);
@@ -49,6 +52,7 @@ public class Initialisation {
         int resultat;
         for (Agence a: listAgence.getList()){
             LieuFormation closest=getClosest(a, listForm.getList());
+            //LieuFormation closest=getCloseEnough(a, listForm.getList());
             listForm.addPeople(closest, a.getNbPersonnes());
             S.putLieuFormation(a,closest);
         }
@@ -61,25 +65,23 @@ public class Initialisation {
         double t=ti; // Parametre température initiale
         int k=0;
         Solution Sn; // Solution courante
-        Solution Sp=Si; // Solution précedente
-        Solution Smin=Si; // Solution optimale recherchée par l'algo
+        Solution Sp=Si.clone(); // Solution précedente
+        Solution Smin=Si.clone(); // Solution optimale recherchée par l'algo
         int En; // Valeur de la solution courante 
         int delta;
         while (k<kmax) {
-            System.out.println("k="+k+" "+CalculResultat.resultat(Smin));
-            Sn=voisin(Sp, listForm.getList()); //WTF, pourquoi ça modifie CaulculResultat.resultat(Smin) ???
-            System.out.println("k="+k+" "+CalculResultat.resultat(Smin));
+            Sn=voisin(Sp, listForm.getList());
             En=CalculResultat.resultat(Sn);
             delta = En-CalculResultat.resultat(Sp);
             if (delta <= 0) {
-                Sp = Sn;
+                Sp = Sn.clone();
                 if (En<CalculResultat.resultat(Smin)) {
-                    Smin=Sn;
+                    Smin=Sn.clone();
                 }
             }
             else {
                 if(Math.random()<Math.exp(-delta/t)){
-                    Sp = Sn;
+                    Sp = Sn.clone();
                 }
             }
          t=u*t;
