@@ -33,9 +33,22 @@ public class ListeLieuxFormation {
         return llf;
     }
     
+    //ajoute l'entier passé en paramètre à l'effectif du lieu de formation en paramètre
     public void addPeople(LieuFormation Lieu, int people) {
-        //todo
-        //llf.forEach();
+        for(EffectifLieuFormation elf: llf){
+            if(elf.getId()==Lieu.getId()) {
+                elf.setEffectif(elf.getEffectif()+people);
+            }
+        }
+    }
+    
+    //retire l'entier passé en paramètre à l'effectif du lieu de formation en paramètre
+    public void withdrowPeople(LieuFormation Lieu, int people) {
+                for(EffectifLieuFormation elf: llf){
+            if(elf.getId()==Lieu.getId()) {
+                elf.setEffectif(elf.getEffectif()-people);
+            }
+        }
     }
     
     private List<EffectifLieuFormation> lireFichier(String f){

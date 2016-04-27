@@ -32,12 +32,12 @@ public class Initialisation {
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
         //Todo prompt parametres
-        int kmax=10000;
-        double df=50000;
-        double p=0.5;
+        int kmax=100000;
+        double df=40000;
+        double p=0.8;
         //double ti=50;
         double ti=-df/Math.log(p);
-        double u=0.99;
+        double u=0.95;
         Solution Si=trouverSolutionInitiale(listAgence, listForm);
         Solution Smin=trouverSolutionFinale(Si, listForm, kmax, ti, u);
     }
@@ -50,7 +50,7 @@ public class Initialisation {
         Solution S = new Solution();
         int resultat;
         for (Agence a: listAgence.getList()){
-            LieuFormation closest=getClosest(a, listForm.getList());
+            LieuFormation closest=getClosest(a, listForm);
             //LieuFormation closest=getCloseEnough(a, listForm.getList());
             listForm.addPeople(closest, a.getNbPersonnes());
             S.putLieuFormation(a,closest);
@@ -69,7 +69,7 @@ public class Initialisation {
         int En; // Valeur de la solution courante 
         int delta;
         while (k<kmax) {
-            Sn=voisin(Sp, listForm.getList());
+            Sn=voisin(Sp, listForm);
             En=CalculResultat.resultat(Sn);
             delta = En-CalculResultat.resultat(Sp);
             if (delta <= 0) {
@@ -93,12 +93,12 @@ public class Initialisation {
     Renvoi le lieu de formation libre (ayant suffisament de place)
     le plus proche de l'agence donnée
     */
-    public static LieuFormation getClosest(Agence a, List<EffectifLieuFormation> listForm){
+    public static LieuFormation getClosest(Agence a, ListeLieuxFormation listForm){
         double longi = a.getLongitude();
         double lati = a.getLatitude();
         double min = 1500.0; //plus grand que la france
-        EffectifLieuFormation closest = listForm.get(0);
-        for(EffectifLieuFormation elf: listForm){
+        EffectifLieuFormation closest = listForm.getList().get(0);
+        for(EffectifLieuFormation elf: listForm.getList()){
             boolean rempli = (a.getNbPersonnes()+elf.getEffectif())>60;
             double dist = FonctionUtiles.DistanceTo(lati, longi, elf.getLatitude(), elf.getLongitude());
             if (dist<min && !rempli){
@@ -112,13 +112,13 @@ public class Initialisation {
     Renvoi un lieu de formation aléatoire situé à une distance inférieure à maxAccept KM.
     Si on ne trouve pas de tel lieu après 1000 itérations, on renvoi le lieu le plus proche.
     */
-    public static LieuFormation getCloseEnough(Agence a, List<EffectifLieuFormation> listForm)  {
+    public static LieuFormation getCloseEnough(Agence a, ListeLieuxFormation listForm)  {
         double maxAccept = 300;
         EffectifLieuFormation close = null;
         EffectifLieuFormation randLieu;
         int k=0;
         while (close==null && k < 1000) {
-        randLieu=FonctionUtiles.randomFromList(listForm);
+        randLieu=FonctionUtiles.randomFromList(listForm.getList());
             if(FonctionUtiles.DistanceTo(a.getLatitude(), a.getLongitude(), randLieu.getLatitude(), randLieu.getLongitude()) < maxAccept){
                 close=randLieu;
             }
@@ -128,15 +128,19 @@ public class Initialisation {
             return close;
         }
         else {
-            return getClosest( a, listForm);
+            //return getClosest(a, listForm);
+            return null;
         }
     }
     
-    public static Solution voisin(Solution solution, List<EffectifLieuFormation> listForm) {                                                                                                                                      
+    public static Solution voisin(Solution solution, ListeLieuxFormation listForm) {                                                                                                                                      
         List<Agence> agences=solution.getListAgence();
         Agence a=FonctionUtiles.randomFromList(agences);
         Solution s0=solution.clone();
-        s0.putLieuFormation(a,getCloseEnough(a, listForm));
+        LieuFormation closeEnough = getCloseEnough(a, listForm);
+        listForm.withdrowPeople(s0.getCouple().get(a), a.getNbPersonnes());
+        listForm.addPeople(closeEnough, a.getNbPersonnes());
+        s0.putLieuFormation(a,closeEnough);
         return s0;
     }
     
