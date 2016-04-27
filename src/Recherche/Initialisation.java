@@ -50,7 +50,6 @@ public class Initialisation {
     public static Solution trouverSolutionInitiale(ListeAgences listAgence, ListeLieuxFormation listForm){
         //On cherche un état itinial à l'algorithme,
         //pour cela on choisit le lieu de formation libre le plus proche de chaque agence
-        //cette méthode nous donne une solution assez bonne, qui ne sera donc pas facile à améliorer
         Solution S = new Solution();
         int resultat;
         for (Agence a: listAgence.getList()){
