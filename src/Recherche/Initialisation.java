@@ -55,7 +55,7 @@ public class Initialisation {
         int resultat;
         for (Agence a: listAgence.getList()){
             LieuFormation closest=getClosest(a, listForm);
-            //LieuFormation closest=getCloseEnough(a, listForm.getList());
+            //LieuFormation closest=getCloseEnough(a, listForm);
             listForm.addPeople(closest, a.getNbPersonnes());
             S.putLieuFormation(a,closest);
         }
