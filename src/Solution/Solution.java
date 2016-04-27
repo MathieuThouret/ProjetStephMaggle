@@ -56,4 +56,16 @@ public class Solution {
         s0.couple=new HashMap<>(this.couple);
         return s0;
     }
+    
+    @Override
+    public String toString() {
+        String s = "";
+         for (Map.Entry<Agence, LieuFormation> entry : couple.entrySet()) {
+                s+=entry.getKey().getId();
+                s+="    --->    ";
+                s+=entry.getValue().getId();
+                s+="\n";
+        }
+         return s;
+    }
 }

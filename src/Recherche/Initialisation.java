@@ -39,7 +39,11 @@ public class Initialisation {
         double ti=-df/Math.log(p);
         double u=0.95;
         Solution Si=trouverSolutionInitiale(listAgence, listForm);
+        System.out.println("Nous trouvons un résultat initial de "+CalculResultat.resultat(Si)+" €");
         Solution Smin=trouverSolutionFinale(Si, listForm, kmax, ti, u);
+        System.out.println(Smin.toString());
+        System.out.println("Nous trouvons un résultat final de "+CalculResultat.resultat(Smin)+" €");
+
     }
     
     
@@ -56,7 +60,7 @@ public class Initialisation {
             S.putLieuFormation(a,closest);
         }
         resultat=CalculResultat.resultat(S);
-        System.out.println("Nous trouvons un résultat initial de "+resultat+" €");
+        
         return S;
     }
     
@@ -86,7 +90,6 @@ public class Initialisation {
          t=u*t;
          k++;
         }
-        System.out.println("Nous trouvons un résultat final de "+CalculResultat.resultat(Smin)+" €");
         return Smin;
     }
     /*
