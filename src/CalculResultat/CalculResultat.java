@@ -39,6 +39,7 @@ public class CalculResultat {
         for (Map.Entry<Agence, LieuFormation> entry : solution.getCouple().entrySet()) {
                 resultat+=FonctionUtiles.DistanceTo(entry.getValue().getLatitude(),entry.getValue().getLongitude(), entry.getKey().getLatitude(), entry.getKey().getLongitude())*0.4*entry.getKey().getNbPersonnes();
         }
+        System.out.println(nbLieux(solution)+" ; "+resultat);
         return resultat;
     }
 }

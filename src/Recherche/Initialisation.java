@@ -29,16 +29,15 @@ public class Initialisation {
     de chaque agence    
     */
     public static void main(String[] args){
-        //Todo prompt données
         ListeAgences listAgence = new ListeAgences();
         ListeLieuxFormation listForm = new ListeLieuxFormation();
         //Todo prompt parametres
-        int kmax=100000;
-        double df=2000;
-        double p=0.8;
+        int kmax=10000;
+        double df=50000;
+        double p=0.5;
         //double ti=50;
         double ti=-df/Math.log(p);
-        double u=0.85;
+        double u=0.99;
         Solution Si=trouverSolutionInitiale(listAgence, listForm);
         Solution Smin=trouverSolutionFinale(Si, listForm, kmax, ti, u);
     }
@@ -123,6 +122,7 @@ public class Initialisation {
             if(FonctionUtiles.DistanceTo(a.getLatitude(), a.getLongitude(), randLieu.getLatitude(), randLieu.getLongitude()) < maxAccept){
                 close=randLieu;
             }
+            k++;
         }
         if (k<1000) {
             return close;
@@ -135,8 +135,9 @@ public class Initialisation {
     public static Solution voisin(Solution solution, List<EffectifLieuFormation> listForm) {                                                                                                                                      
         List<Agence> agences=solution.getListAgence();
         Agence a=FonctionUtiles.randomFromList(agences);
-        solution.putLieuFormation(a,getCloseEnough(a, listForm));
-        return solution;
+        Solution s0=solution.clone();
+        s0.putLieuFormation(a,getCloseEnough(a, listForm));
+        return s0;
     }
     
 }

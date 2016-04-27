@@ -53,7 +53,7 @@ public class Solution {
     
     public Solution clone() {
         Solution s0= new Solution();
-        s0.couple=new HashMap<Agence, LieuFormation>(this.couple);
+        s0.couple=new HashMap<>(this.couple);
         return s0;
     }
 }
