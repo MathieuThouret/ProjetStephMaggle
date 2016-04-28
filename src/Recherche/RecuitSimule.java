@@ -33,10 +33,13 @@ public class RecuitSimule {
         ListeAgences listAgence;
         
         //Commenter pour faire des tests sur le temps de calcul
-        System.out.println("Nombre d'agence : [100][300][500]");
+        System.out.println("Nombre d'agences : [100][300][500][Custom]");
         Scanner in = new Scanner(System.in);
         String s = in.next();
         switch (s) {
+            case "":
+                listAgence = new ListeAgences();
+                break;
             case "100":
                 listAgence = new ListeAgences();
                 break;
@@ -47,7 +50,7 @@ public class RecuitSimule {
                 listAgence = new ListeAgences("ressources/ListeAgences_500.txt");
                 break;
             default:
-                listAgence = new ListeAgences();
+                listAgence = new ListeAgences("ressources/"+s);
                 break;
         }
         System.out.println("Donnez les paramètres du recuit souhaités : ");
