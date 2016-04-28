@@ -26,7 +26,7 @@ public class ListeLieuxFormation {
     }
     
     public ListeLieuxFormation(){
-        this.llf = lireFichier("resources/LieuxPossibles.txt");
+        this.llf = lireFichier("ressources/LieuxPossibles.txt");
     }
     
     public List<EffectifLieuFormation> getList(){
@@ -91,4 +91,6 @@ public class ListeLieuxFormation {
         }
         return str;
     }
+    
+    
 }

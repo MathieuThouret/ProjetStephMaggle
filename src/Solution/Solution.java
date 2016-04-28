@@ -68,4 +68,28 @@ public class Solution {
         }
          return s;
     }
+    
+    public String affichageParLieu(){
+        List<LieuFormation> list = new ArrayList();
+        for (Map.Entry<Agence, LieuFormation> entry : couple.entrySet()) {
+            if (!list.contains(entry.getValue())) {
+                list.add(entry.getValue());
+            }
+        }
+        String s = " - ";
+        for (LieuFormation l: list){
+            int effectifLieu = 0;
+            s += l.getId() +" : ";
+            for (Map.Entry<Agence, LieuFormation> entry : couple.entrySet()) {
+                if (entry.getValue().getId().equals(l.getId())){
+                    s += entry.getKey().getId();
+                    s += " (" + entry.getKey().getNbPersonnes() + ")";
+                    s+= ", ";
+                    effectifLieu += entry.getKey().getNbPersonnes();
+                }
+            }
+            s += "\n          Total: " + effectifLieu + " personnes\n - ";
+        }
+        return s;
+    }
 }

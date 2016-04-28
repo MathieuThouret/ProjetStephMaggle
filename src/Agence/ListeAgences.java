@@ -24,7 +24,7 @@ public class ListeAgences {
     }
     
     public ListeAgences(){
-        this.la = lireFichier("resources/ListeAgences_100.txt");
+        this.la = lireFichier("ressources/ListeAgences_100.txt");
     }
     
     public List<Agence> getList(){
